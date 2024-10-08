@@ -74,10 +74,18 @@ MetaDataModel *DecoderSunVoxFactory::createMetaDataModel(const QString &path, bo
     return new SunVoxMetaDataModel(path);
 }
 
+#if (QMMP_VERSION_INT < 0x10700) || (0x20000 <= QMMP_VERSION_INT && QMMP_VERSION_INT < 0x20200)
 void DecoderSunVoxFactory::showSettings(QWidget *parent)
 {
     Q_UNUSED(parent);
 }
+#else
+QDialog *DecoderSunVoxFactory::createSettings(QWidget *parent)
+{
+    Q_UNUSED(parent);
+    return nullptr;
+}
+#endif
 
 void DecoderSunVoxFactory::showAbout(QWidget *parent)
 {

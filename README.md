@@ -27,3 +27,5 @@ To install: <br/>
 This installs the plugin into Qmmp's input plugin directory.  To install
 to a staging area, such as for packaging: <br/>
 `$ make install INSTALL_ROOT=/path/to/staging`
+
+Put the sunvox library into Qmmp configDir, such as `PATH/.qmmp/sunvox.so`

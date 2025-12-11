@@ -23,7 +23,7 @@ void SunVoxMetaDataModel::fillProperties(SunVoxHelper *helper)
         m_desc << MetaDataItem(tr("Modules"), helper->module());
     }
 
-    if(helper->pattern() != 0)
+    if(helper->patterns() != 0)
     {
         m_desc << MetaDataItem(tr("Patterns"), helper->pattern());
     }

@@ -1,5 +1,6 @@
 This is a plugin for Qmmp (1.6.0 or greater) which supports SunVox file.
-(https://warmplace.ru/soft/sunvox/)
+
+Based on [SunVox](https://warmplace.ru/soft/sunvox) (A powerful modular synthesizer and pattern-based sequencer (tracker)).
 
 The following packages are required, including development headers,
 which some vendors split into separate packages:

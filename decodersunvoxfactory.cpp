@@ -91,7 +91,9 @@ void DecoderSunVoxFactory::showAbout(QWidget *parent)
 {
     QMessageBox::about(parent, tr("About SunVox Reader Plugin"),
                        tr("Qmmp SunVox Reader Plugin") + "\n" +
-                       tr("Written by: Greedysky <greedysky@163.com>"));
+                       tr("Written by: Greedysky <greedysky@163.com>") + "\n" +
+                       tr("Based on the source code from the libSunVox") + "\n" +
+                       tr("Written by Matthew R. Scott (C) 2002"));
 }
 
 QString DecoderSunVoxFactory::translation() const

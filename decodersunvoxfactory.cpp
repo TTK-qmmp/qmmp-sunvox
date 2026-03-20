@@ -36,19 +36,25 @@ Decoder *DecoderSunVoxFactory::create(const QString &path, QIODevice *input)
     return new DecoderSunVox(path);
 }
 
-QList<TrackInfo*> DecoderSunVoxFactory::createPlayList(const QString &path, TrackInfo::Parts parts, QStringList *)
+TrackInfoList DecoderSunVoxFactory::createPlayList(const QString &path, TrackInfo::Parts parts, QStringList *)
 {
-    TrackInfo *info = new TrackInfo(path);
+#if QMMP_VERSION_INT < 0x20400
+    TrackInfo *raw(new TrackInfo(path)), *info = raw;
+#else
+    TrackInfo raw(path), info = &raw;
+#endif
     if(parts == TrackInfo::Parts())
     {
-        return QList<TrackInfo*>() << info;
+        return {raw};
     }
 
     SunVoxHelper helper(path);
     if(!helper.initialize(true))
     {
+#if QMMP_VERSION_INT < 0x20400
         delete info;
-        return QList<TrackInfo*>();
+#endif
+        return {};
     }
 
     if(TrackInfo::MetaData)
@@ -65,7 +71,8 @@ QList<TrackInfo*> DecoderSunVoxFactory::createPlayList(const QString &path, Trac
         info->setValue(Qmmp::FORMAT_NAME, "SunVox");
         info->setDuration(helper.totalTime());
     }
-    return QList<TrackInfo*>() << info;
+
+    return {raw};
 }
 
 MetaDataModel *DecoderSunVoxFactory::createMetaDataModel(const QString &path, bool readOnly)

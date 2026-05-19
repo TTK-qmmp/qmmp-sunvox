@@ -1,9 +1,5 @@
 #include "sunvoxhelper.h"
 
-#ifdef Q_OS_WIN
-#  include <QCoreApplication>
-#endif
-
 #define SV_INIT_FLAG_NO_DEBUG_OUTPUT 		( 1 << 0 )
 #define SV_INIT_FLAG_USER_AUDIO_CALLBACK 	( 1 << 1 ) /* Offline mode: */
                                /* system-dependent audio stream will not be created; */
@@ -37,16 +33,19 @@
 #  else
 #    define SUNVOX_CALL __stdcall
 #  endif
-#  define LIBRARY_NAME   QCoreApplication::applicationDirPath() + "/sunvox.dll"
-#  define LIBRARY_TKNAME QCoreApplication::applicationDirPath() + "/sunvox.tkb"
+#  define LIBRARY_NAME  Qmmp::pluginPath() + "/../sunvox.dll"
 #elif defined Q_OS_LINUX
 #  define SUNVOX_CALL
-#  define LIBRARY_NAME   Qmmp::configDir() + "/sunvox.so"
-#  define LIBRARY_TKNAME Qmmp::configDir() + "/sunvox.tkb"
+#  define LIBRARY_NAME  Qmmp::pluginPath() + "/../sunvox.so"
 #elif defined Q_OS_MAC
 #  define SUNVOX_CALL
-#  define LIBRARY_NAME   Qmmp::configDir() + "/sunvox.dylib"
-#  define LIBRARY_TKNAME Qmmp::configDir() + "/sunvox.tkb"
+#  define LIBRARY_NAME  Qmmp::pluginPath() + "/../sunvox.dylib"
+#endif
+
+#ifdef Q_OS_WIN
+#  define LIBRARY_TKNAME  Qmmp::pluginPath() + "/../sunvox.tkb"
+#else
+#  define LIBRARY_TKNAME  "/tmp/sunvox.tkb"
 #endif
 
 typedef int (SUNVOX_CALL *_sv_audio_callback)(void* buf, int frames, int latency, uint32_t out_time);
